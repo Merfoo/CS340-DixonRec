@@ -11,6 +11,7 @@ CREATE TABLE `Trainer` (
   PRIMARY KEY (`id`)
 );
 
+
 --
 -- Table structure for table `members`
 --
@@ -42,8 +43,8 @@ CREATE TABLE `Class` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `price` int(11) DEFAULT NULL,
-  `description` varchar(500) NOT NULL;
-  `InstructorId` int(11) DEFAULT NULL;
+  `description` varchar(500) NOT NULL,
+  `InstructorId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`InstructorId`) REFERENCES Instructor(`id`)
 );
@@ -54,26 +55,26 @@ CREATE TABLE `Class` (
 CREATE TABLE `Club` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
-  `description` varchar(500) NOT NULL;
-  PRIMARY KEY (`id`),
+  `description` varchar(500) NOT NULL,
+  PRIMARY KEY (`id`)
 );
 
 --
 -- Table structure for table `ClubMember`
 --
-CREATE TABLE 'ClubMember' (
+CREATE TABLE `ClubMember` (
   `MemberId` int(11) DEFAULT NULL,
   `ClubId` int(11) DEFAULT NULL,
   FOREIGN KEY (`MemberId`) REFERENCES Member(`id`),
   FOREIGN Key (`ClubId`) REFERENCES Club(`id`)
-)
+);
 
 --
 -- Table structure for table `ClassMember`
 --
-CREATE TABLE 'ClassMember' (
+CREATE TABLE `ClassMember` (
   `MemberId` int(11) DEFAULT NULL,
   `ClassId` int(11) DEFAULT NULL,
   FOREIGN KEY (`MemberId`) REFERENCES Member(`id`),
   FOREIGN Key (`ClassId`) REFERENCES Class(`id`)
-)
+);
