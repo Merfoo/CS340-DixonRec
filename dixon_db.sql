@@ -1,5 +1,5 @@
 --
--- Table structure for table `trainers`
+-- Table structure for table `Trainer`
 --
 CREATE TABLE `Trainer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -13,7 +13,7 @@ CREATE TABLE `Trainer` (
 
 
 --
--- Table structure for table `members`
+-- Table structure for table `Member`
 --
 CREATE TABLE `Member` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -25,7 +25,7 @@ CREATE TABLE `Member` (
 );
 
 --
--- Table structure for table `instructors`
+-- Table structure for table `Instructor`
 --
 CREATE TABLE `Instructor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -37,7 +37,7 @@ CREATE TABLE `Instructor` (
 );
 
 --
--- Table structure for table `classes`
+-- Table structure for table `Class`
 --
 CREATE TABLE `Class` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -50,7 +50,7 @@ CREATE TABLE `Class` (
 );
 
 --
--- Table structure for table `clubs`
+-- Table structure for table `Club`
 --
 CREATE TABLE `Club` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -78,3 +78,22 @@ CREATE TABLE `ClassMember` (
   FOREIGN KEY (`MemberId`) REFERENCES Member(`id`),
   FOREIGN Key (`ClassId`) REFERENCES Class(`id`)
 );
+
+------------------------------------------------------------------------------------------------
+
+--
+-- Populate sample data to table `memeber`
+--
+INSERT INTO Member (fname, lname) VALUES ('Thomas', 'Mai');
+INSERT INTO Member (fname, lname) VALUES ('Logan', 'Hockley');
+INSERT INTO Member (fname, lname) VALUES ('Nick', 'Gorgini');
+INSERT INTO Member (fname, lname) VALUES ('Kyle', 'Andrews');
+INSERT INTO Member (fname, lname) VALUES ('Karah', 'Weber');
+INSERT INTO Member (fname, lname) VALUES ('Cyra', 'Steenkolk');
+INSERT INTO Member (fname, lname) VALUES ('Aidan', 'Carson');
+INSERT INTO Member (fname, lname) VALUES ('Symon', 'Ramos');
+INSERT INTO Member (fname, lname) VALUES ('Daniel', 'Trinh');
+INSERT INTO Member (fname, lname) VALUES ('John', 'Van');
+INSERT INTO Member (fname, lname) VALUES ('Bailey', 'Singleton');
+INSERT INTO Member (fname, lname) VALUES ('Selena', 'Phan');
+INSERT INTO Member (fname, lname) VALUES ('Jimmy', 'Van');
