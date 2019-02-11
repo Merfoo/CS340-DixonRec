@@ -6,7 +6,7 @@ CREATE TABLE `Trainer` (
   `fname` varchar(100) NOT NULL,
   `lname` varchar(100) NOT NULL,
   `sex` varchar(6) NOT NULL,
-  `description` varchar(500) NOT NULL,
+  `description` varchar(500) DEFAULT NULL,
   `hourlyRate` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 );
@@ -32,7 +32,7 @@ CREATE TABLE `Instructor` (
   `fname` varchar(100) NOT NULL,
   `lname` varchar(100) NOT NULL,
   `sex` varchar(100) NOT NULL,
-  `description` varchar(500) NOT NULL,
+  `description` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -42,8 +42,8 @@ CREATE TABLE `Instructor` (
 CREATE TABLE `Class` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
-  `price` int(11) DEFAULT NULL,
-  `description` varchar(500) NOT NULL,
+  `price` int(11) NOT NULL,
+  `description` varchar(500) DEFAULT NULL,
   `InstructorId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`InstructorId`) REFERENCES Instructor(`id`)
@@ -55,7 +55,7 @@ CREATE TABLE `Class` (
 CREATE TABLE `Club` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
-  `description` varchar(500) NOT NULL,
+  `description` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
