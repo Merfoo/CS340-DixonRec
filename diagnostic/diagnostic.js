@@ -51,7 +51,8 @@ app.get("/members", (req, res, next) => {
   let context = {};
   console.log('MEMBERS HIT!');
 
-  mysql.pool.query('SELECT * FROM Member', (err, rows, fields) => {
+  let sqlStr = 'SELECT Member.fname AS mFirstName, Member.lname AS mLastName, Trainer.fname AS tFirstName, Trainer.lname AS tLastName FROM Member LEFT JOIN Trainer ON Member.TrainerId = Trainer.id';
+  mysql.pool.query(sqlStr, (err, rows, fields) => {
     console.log('MEMBERS query finished!');
     console.log(err);
     console.log(rows);
