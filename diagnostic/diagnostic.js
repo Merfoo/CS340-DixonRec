@@ -47,7 +47,20 @@ app.get("/instructors", (req, res, next) => {
 });
 
 app.get("/members", (req, res, next) => {
-  res.render('members');
+
+  let context = {};
+  console.log('MEMBERS HIT!');
+
+  mysql.pool.query('SELECT * FROM Member', (err, rows, fields) => {
+    console.log('MEMBERS query finished!');
+    console.log(err);
+    console.log(rows);
+    console.log(fields);
+
+    context.rows = rows;
+    console.log(context);
+    res.render('members', context);
+  });
 });
 
 app.get("/trainers", (req, res, next) => {

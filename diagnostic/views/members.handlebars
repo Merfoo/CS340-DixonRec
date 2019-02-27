@@ -61,16 +61,13 @@
                 <th>Last Name</th> 
                 <th>Trainer</th>
             </tr>
+            {{#each rows}}
             <tr>
-                <td>Jill</td>
-                <td>Smith</td>
-                <td></td>
+                <td>{{fname}}</td>
+                <td>{{lname}}</td>
+                <td>{{TrainerId}}</td>
             </tr>
-            <tr>
-                <td>Eve</td>
-                <td>Jackson</td>
-                <td></td>
-            </tr>
+            {{/each}}
         </table>
     </div>
 </section>
