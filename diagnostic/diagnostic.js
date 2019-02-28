@@ -19,15 +19,42 @@ app.get('/',function(req,res,next){
 });
 
 app.get("/classes", (req, res, next) => {
-    res.render('classes');
+    let context = {};
+    console.log('CLASSES HIT!');
+
+    let sqlStr = 'SELECT Class.name AS className, Class.price AS classPrice, Class.description AS classDescription, Instructor.fname AS iFirstName, Instructor.lname AS iLastName FROM Class LEFT JOIN Instructor ON Class.InstructorId = Instructor.id';
+
+    mysql.pool.query(sqlStr, (err, classRows, fields) => {
+            console.log('CLASSES query finished!');
+            context.classes = classRows;
+            res.render('classes', context);
+    })  
 });
 
 app.get("/clubs", (req, res, next) => {
-    res.render('clubs');
+    let context = {};
+    console.log('CLUBS HIT!');
+
+    let sqlStr = 'SELECT Club.name AS clubName, Club.description AS clubDescription FROM Club';
+
+    mysql.pool.query(sqlStr, (err, clubRows, fields) => {
+            console.log('CLUBS query finished!');
+            context.clubs = clubRows;
+            res.render('clubs', context);
+    })  
 });
 
 app.get("/instructors", (req, res, next) => {
-    res.render('instructors');
+    let context = {};
+    console.log('INSTRUCTORS HIT!');
+
+    let sqlStr = 'SELECT Instructor.fname AS iFirstName, Instructor.lname AS iLastName, Instructor.sex AS iSex, Instructor.description AS iDescription FROM Instructor';
+
+    mysql.pool.query(sqlStr, (err, instructorRows, fields) => {
+            console.log('INSTRUCTORS query finished!');
+            context.instructors = instructorRows;
+            res.render('instructors', context);
+    })  
 });
 
 app.get("/members", (req, res, next) => {
@@ -47,7 +74,16 @@ app.get("/members", (req, res, next) => {
 });
 
 app.get("/trainers", (req, res, next) => {
-    res.render('trainers');
+    let context = {};
+    console.log('TRAINERS HIT!');
+
+    let sqlStr = 'SELECT Trainer.fname AS tFirstName, Trainer.lname AS tLastName, Trainer.sex AS tSex, Trainer.description AS tDescription, Trainer.hourlyRate AS tHourlyRate FROM Trainer';
+
+    mysql.pool.query(sqlStr, (err, trainerRows, fields) => {
+            console.log('TRAINERS query finished!');
+            context.trainers = trainerRows;
+            res.render('trainers', context);
+    })  
 });
 
 app.post("/members", function(req,res){

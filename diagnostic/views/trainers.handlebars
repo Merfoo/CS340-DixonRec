@@ -83,26 +83,19 @@
         <h1 class="title">Trainers</h1>
         <table class="table">
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th> 
+                <th>Trainer Name</th>
                 <th>Sex</th>
                 <th>Description</th>
                 <th>Hourly Rate</th>
             </tr>
+            {{#each trainers}}
             <tr>
-                <td>Jill</td>
-                <td>Smith</td> 
-                <td>Female</td> 
-                <td>Loves to Run</td> 
-                <td>10.00</td> 
+                <td>{{tFirstName}} {{tLastName}}</td>
+                <td>{{tSex}}</td> 
+                <td>{{tDescription}}</td> 
+                <td>{{tHourlyRate}}</td> 
             </tr>
-            <tr>
-                <td>Eve</td>
-                <td>Jackson</td> 
-                <td>Female</td> 
-                <td>Powerlifter</td> 
-                <td>10.00</td> 
-            </tr>
+            {{/each}}
         </table>
     </div>
 </section>

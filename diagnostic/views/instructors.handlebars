@@ -1,4 +1,4 @@
-<section class="section">
+    <section class="section">
     <div class="container">
         <h1 class="title">
             Add Instructor
@@ -49,23 +49,17 @@
         <h1 class="title">Instructors</h1>
         <table class="table">
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th> 
+                <th>Instructor Name</th> 
                 <th>Sex</th>
                 <th>Description</th>
             </tr>
+            {{#each instructors}}
             <tr>
-                <td>Jill</td>
-                <td>Smith</td> 
-                <td>Female</td> 
-                <td>Loves to Run</td> 
+                <td>{{iFirstName}} {{iLastName}}</td>
+                <td>{{iSex}}</td> 
+                <td>{{iDescription}}</td>  
             </tr>
-            <tr>
-                <td>Eve</td>
-                <td>Jackson</td> 
-                <td>Female</td> 
-                <td>Powerlifter</td> 
-            </tr>
+            {{/each}}
         </table>
     </div>
 </section>
