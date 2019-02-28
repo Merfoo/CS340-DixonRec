@@ -84,16 +84,22 @@ app.listen(app.get('port'), function(){
 });
 
 router.post("/members", function(req,res){
-  var mysql = req.app.get('mysql');
-  var trainerId = "SELECT id from Trainer WHERE fname = '" + req.body.trainerFirstName + "' and lname = '" + req.body.trainerFirstName + "'";
+  //var mysql = req.app.get('mysql');
+
+  var sqlSelect = "SELECT id from Trainer WHERE fname = '" + req.body.trainerFirstName + "' and lname = '" + req.body.trainerLastName + "'";
   var sqlInsert = "INSERT INTO Member (fname, lname, TrainerId) VALUES (?,?,?)";
-  var inserts  = [req.body.fname, req.body.lname, trainerId];
-  mysql.pool.query(sqlInsert, inserts,function(error, results,fields){
-    if(error){
-        res.write(JSON.stringify(error));
-        res.end;
-    } else{
-      res.redirect('/members');
-    }
+  //This query should find TrainerId based on user input
+  mysql.pool.query(sqlSelect, function(err, results){
+    var inserts  = [req.body.fname, req.body.lname, results];
+    //This query should insert into Member table
+    mysql.pool.query(sqlInsert, inserts,function(err, results,fields){
+      if(err){
+          res.write(JSON.stringify(err));
+          res.end;
+      } else{
+        console.log('Inserted Succesfully!')
+        res.redirect('/members');
+      }
+    });
   });
 });
