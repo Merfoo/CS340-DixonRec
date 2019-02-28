@@ -52,37 +52,37 @@ INSERT INTO ClassMember(MemberId, ClassId) VALUES (:MemberId, :ClassId);
 --
 -- Populate sample data to table `memeber`
 --
-INSERT INTO Member (fname, lname) VALUES ('Thomas', 'Mai');
-INSERT INTO Member (fname, lname) VALUES ('Logan', 'Hockley');
-INSERT INTO Member (fname, lname) VALUES ('Nick', 'Gorgini');
-INSERT INTO Member (fname, lname) VALUES ('Kyle', 'Andrews');
-INSERT INTO Member (fname, lname) VALUES ('Karah', 'Weber');
-INSERT INTO Member (fname, lname) VALUES ('Cyra', 'Steenkolk');
-INSERT INTO Member (fname, lname) VALUES ('Daniel', 'Trinh');
-INSERT INTO Member (fname, lname) VALUES ('John', 'Van');
-INSERT INTO Member (fname, lname) VALUES ('Bailey', 'Singleton');
+INSERT INTO Member (fname, lname, TrainerId) VALUES ('Thomas', 'Mai', 1);
+INSERT INTO Member (fname, lname, TrainerId) VALUES ('Logan', 'Hockley', 1);
+INSERT INTO Member (fname, lname, TrainerId) VALUES ('Nick', 'Gorgini', null);
+INSERT INTO Member (fname, lname, TrainerId) VALUES ('Kyle', 'Andrews', null);
+INSERT INTO Member (fname, lname, TrainerId) VALUES ('Karah', 'Weber', 2);
+INSERT INTO Member (fname, lname, TrainerId) VALUES ('Cyra', 'Steenkolk', 2);
+INSERT INTO Member (fname, lname, TrainerId) VALUES ('Daniel', 'Trinh', 2);
+INSERT INTO Member (fname, lname, TrainerId) VALUES ('John', 'Van', 1);
+INSERT INTO Member (fname, lname, TrainerId) VALUES ('Bailey', 'Singleton', 2);
 
 --
 -- Populate sample data to table `Trainer`
 --
-INSERT INTO Trainer (fname, lname, sex) VALUES ('Symon', 'Ramos', 'Male');
-INSERT INTO Trainer (fname, lname, sex) VALUES ('Aidan', 'Carson', 'Female');
+INSERT INTO Trainer (fname, lname, sex, description, hourlyRate) VALUES ('Symon', 'Ramos', 'Male'. 'Powerlifter Enthusiast', 25);
+INSERT INTO Trainer (fname, lname, sex, description, hourlyRate) VALUES ('Aidan', 'Carson', 'Female', 'Cardio/Conditioning Coach', 25);
 
 
 --
 -- Populate sample data to table `Instructor`
 --
-INSERT INTO Instructor (fname, lname, sex) VALUES ('Selena', 'Phan', 'Female');
-INSERT INTO Instructor (fname, lname, sex) VALUES ('Jimmy', 'Van', 'Male');
+INSERT INTO Instructor (fname, lname, sex, description) VALUES ('Selena', 'Phan', 'Female', 'Yoga Master');
+INSERT INTO Instructor (fname, lname, sex, description) VALUES ('Jimmy', 'Van', 'Male', 'Instructor by day, dancer by night');
 
 --
 -- Populate sample data to table `Class`
 --
-INSERT INTO Class (name, price) VALUES ('Hot Yoga', '15');
-INSERT INTO Class (name, price) VALUES ('Jazzercise', '10');
+INSERT INTO Class (name, price, description, InstructorId) VALUES ('Hot Yoga', 15, 'Come stretch and sweat it out!', 1);
+INSERT INTO Class (name, price, description, InstructorId) VALUES ('Jazzercise', 10, 'Dance up a sweat!', 2);
 
 --
--- Populate sample data to table `Class`
+-- Populate sample data to table `Club`
 --
-INSERT INTO Club (name) VALUES ('Ping Pong');
-INSERT INTO Club (name) VALUES ('Badminton');
+INSERT INTO Club (name, description) VALUES ('Ping Pong', 'Play ping pong with the best of the best.');
+INSERT INTO Club (name, description) VALUES ('Volleyball', 'Join to bump, set, and spike!');
