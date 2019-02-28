@@ -1,3 +1,4 @@
+<script defer src="./js/members.js"></script>
 <section class="section">
     <div class="container">
         <h1 class="title">
@@ -20,15 +21,19 @@
 
         <div class="field">
             <label class="label">Trainer's Name</label>
-            <div class="control">
-                <input class="input" type="text" name="trainerFirstName" placeholder="First name">
-                <input class="input" type="text" name="trainerLastName" placeholder="Last name">
+            <div class="select">
+                <select id="trainerId">
+                    <option value="-1">None</option>
+                    {{#each trainers}}
+                    <option value="{{id}}">{{firstName}} {{lastName}}</option>
+                    {{/each}}
+                </select>
             </div>
         </div>
 
         <div class="field">
             <div class="control">
-                <button class="button is-link">Submit</button>
+                <button id="submit" class="button is-link">Submit</button>
             </div>
         </div>
     </div>
@@ -61,10 +66,10 @@
                 <th>Member Name</th>
                 <th>Trainer Name</th>
             </tr>
-            {{#each rows}}
+            {{#each members}}
             <tr>
                 <td>{{mFirstName}} {{mLastName}}</td>
-                <td>{{tFirstName}} {{tLastname}}</td>
+                <td>{{tFirstName}} {{tLastName}}</td>
             </tr>
             {{/each}}
         </table>
