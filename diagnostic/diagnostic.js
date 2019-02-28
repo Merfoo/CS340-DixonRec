@@ -14,22 +14,22 @@ app.get('/',function(req,res,next){
   // "id INT PRIMARY KEY AUTO_INCREMENT," +
   // "text VARCHAR(255) NOT NULL)";
   // mysql.pool.query('DROP TABLE IF EXISTS diagnostic', function(err){
-  //   if(err){
-  //     next(err);
-  //     return;
-  //   }
-  //   mysql.pool.query(createString, function(err){
-  //     if(err){
-  //       next(err);
-	// 	return;
-  //     }
-	//   mysql.pool.query('INSERT INTO diagnostic (`text`) VALUES ("MySQL is Working!")',function(err){
-	//     mysql.pool.query('SELECT * FROM diagnostic', function(err, rows, fields){
-	// 	  context.results = JSON.stringify(rows);
-	// 	  res.render('home',context);
-	// 	});
-	//   });
-  //   });
+    // if(err){
+      // next(err);
+      // return;
+    // }
+    // mysql.pool.query(createString, function(err){
+      // if(err){
+        // next(err);
+		// return;
+      // }
+	  // mysql.pool.query('INSERT INTO diagnostic (`text`) VALUES ("MySQL is Working!")',function(err){
+	    // mysql.pool.query('SELECT * FROM diagnostic', function(err, rows, fields){
+		  // context.results = JSON.stringify(rows);
+		  // res.render('home',context);
+		// });
+	  // });
+    // });
   // });
   res.render('home');
 });
@@ -67,4 +67,19 @@ app.use(function(err, req, res, next){
 
 app.listen(app.get('port'), function(){
   console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
+});
+
+router.post("/members", function(req,res){
+  var mysql = req.app.get('mysql');
+  var trainerId = "SELECT id from Trainer WHERE fname = '" + req.body.trainerFirstName + "' and lname = '" + req.body.trainerFirstName + "'";
+  var sqlInsert = "INSERT INTO Member (fname, lname, TrainerId) VALUES (?,?,?)";
+  var inserts  = [req.body.fname, req.body.lname, trainerId];
+  mysql.pool.query(sqlInsert, inserts,function(error, results,fields){
+    if(error){
+        res.write(JSON.stringify(error));
+        res.end;
+    } else{
+      res.redirect('/members');
+    }
+  });
 });
