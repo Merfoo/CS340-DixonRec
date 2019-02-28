@@ -58,20 +58,15 @@
         <h1 class="title">Members</h1>
         <table class="table">
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th> 
-                <th>Trainer</th>
+                <th>Member Name</th>
+                <th>Trainer Name</th>
             </tr>
+            {{#each rows}}
             <tr>
-                <td>Jill</td>
-                <td>Smith</td>
-                <td></td>
+                <td>{{mFirstName}} {{mLastName}}</td>
+                <td>{{tFirstName}} {{tLastname}}</td>
             </tr>
-            <tr>
-                <td>Eve</td>
-                <td>Jackson</td>
-                <td></td>
-            </tr>
+            {{/each}}
         </table>
     </div>
 </section>

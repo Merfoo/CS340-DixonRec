@@ -47,7 +47,21 @@ app.get("/instructors", (req, res, next) => {
 });
 
 app.get("/members", (req, res, next) => {
-  res.render('members');
+
+  let context = {};
+  console.log('MEMBERS HIT!');
+
+  let sqlStr = 'SELECT Member.fname AS mFirstName, Member.lname AS mLastName, Trainer.fname AS tFirstName, Trainer.lname AS tLastName FROM Member LEFT JOIN Trainer ON Member.TrainerId = Trainer.id';
+  mysql.pool.query(sqlStr, (err, rows, fields) => {
+    console.log('MEMBERS query finished!');
+    console.log(err);
+    console.log(rows);
+    console.log(fields);
+
+    context.rows = rows;
+    console.log(context);
+    res.render('members', context);
+  });
 });
 
 app.get("/trainers", (req, res, next) => {
