@@ -80,12 +80,15 @@ app.get("/trainers", (req, res, next) => {
     let context = {};
     console.log('TRAINERS HIT!');
 
-    let sqlStr = 'SELECT Trainer.fname AS tFirstName, Trainer.lname AS tLastName, Trainer.sex AS tSex, Trainer.description AS tDescription, Trainer.hourlyRate AS tHourlyRate FROM Trainer';
+    let sqlStr = 'SELECT id, Trainer.fname AS tFirstName, Trainer.lname AS tLastName, Trainer.sex AS tSex, Trainer.description AS tDescription, Trainer.hourlyRate AS tHourlyRate FROM Trainer';
 
     mysql.pool.query(sqlStr, (err, trainerRows, fields) => {
+        mysql.pool.query("SELECT id, Member.fname AS mFirstName, Member.lname AS mLastName FROM Member", (err, memberRows, fields) => {
             console.log('TRAINERS query finished!');
+            context.members = memberRows;
             context.trainers = trainerRows;
             res.render('trainers', context);
+        });
     })  
 });
 
@@ -197,6 +200,29 @@ app.post("/trainers", function(req,res){
         console.log("TRAINER INSERT COMPLETE");
         if(err){
             console.log("TRAINER INSERT ERROR");
+            console.log(err);
+            res.write(JSON.stringify(err));
+            res.end;
+        }
+
+        else{
+            console.log('Inserted Succesfully!')
+            res.redirect('/trainers');
+        }
+    });
+});
+
+app.post("/member_trainers", function(req,res){
+    console.log("MEMBER TRAINERS POST");
+    console.log(req.body);
+
+    var sqlInsert = "UPDATE Member SET TrainerId = " + req.body.trainerId + " WHERE id = " + req.body.memberId;
+
+    //This query should insert into Instructor table
+    mysql.pool.query(sqlInsert, (err, results,fields) => {
+        console.log("MEMBER TRAINER INSERT COMPLETE");
+        if(err){
+            console.log("MEMBER TRAINER INSERT ERROR");
             console.log(err);
             res.write(JSON.stringify(err));
             res.end;

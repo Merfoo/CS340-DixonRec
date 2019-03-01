@@ -1,3 +1,4 @@
+<script defer src="./js/trainers.js"></script>
 <section class="section">
     <div class="container">
         <h1 class="title">
@@ -20,20 +21,18 @@
 
         <div class="field">
             <label class="label">Sex</label>
-            <div class="control">
-                <div class="select">
-                    <select id="sex">
-                        <option>Male</option>
-                        <option>Female</option>
-                    </select>
-                </div>
+            <div class="select">
+                <select id="sex">
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
             </div>
         </div>
 
         <div class="field">
             <label class="label">Description</label>
             <div class="control">
-                <textarea class="textarea" name"description" placeholder="Textarea"></textarea>
+                <textarea class="textarea" name="description" placeholder="Textarea"></textarea>
             </div>
         </div>
 
@@ -46,7 +45,7 @@
         
         <div class="field">
             <div class="control">
-                <button class="button is-link">Submit</button>
+                <button id="submitTrainer" class="button is-link">Submit</button>
             </div>
         </div>
     </div>
@@ -59,21 +58,29 @@
 
         <div class="field">
             <label class="label">Member</label>
-            <div class="control">
-                <input class="input" type="text" placeholder="Member Name">
+            <div class="select">
+                <select id="memberId">
+                    {{#each members}}
+                    <option value="{{id}}">{{mFirstName}} {{mLastName}}</option>
+                    {{/each}}
+                </select>
             </div>
         </div>
         
         <div class="field">
             <label class="label">Trainer</label>
-            <div class="control">
-                <input class="input" type="text" placeholder="Trainer Name">
+            <div class="select">
+                <select id="trainerId">
+                    {{#each trainers}}
+                    <option value="{{id}}">{{tFirstName}} {{tLastName}}</option>
+                    {{/each}}
+                </select>
             </div>
         </div>
 
         <div class="field">
             <div class="control">
-                <button class="button is-link">Submit</button>
+                <button id="submitMemberTrainer" class="button is-link">Submit</button>
             </div>
         </div>
     </div>
