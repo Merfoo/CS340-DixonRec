@@ -1,3 +1,4 @@
+<script defer src="./js/classes.js"></script>
 <section class="section">
     <div class="container">
         <h1 class="title">
@@ -22,7 +23,6 @@
             <label class="label">Instructor's Name</label>
             <div class="select">
                 <select id="instructorId">
-                    <option value="-1">None</option>
                     {{#each instructors}}
                     <option value="{{id}}">{{firstName}} {{lastName}}</option>
                     {{/each}}
@@ -39,7 +39,7 @@
 
         <div class="field">
             <div class="control">
-                <button class="button is-link">Submit</button>
+                <button id="submitClass" class="button is-link">Submit</button>
             </div>
         </div>
     </div>
@@ -52,21 +52,29 @@
 
         <div class="field">
             <label class="label">Member</label>
-            <div class="control">
-                <input class="input" type="text" placeholder="Member Name">
+            <div class="select">
+                <select id="memberId">
+                    {{#each members}}
+                    <option value="{{id}}">{{mFirstName}} {{mLastName}}</option>
+                    {{/each}}
+                </select>
             </div>
         </div>
         
         <div class="field">
             <label class="label">Class</label>
-            <div class="control">
-                <input class="input" type="text" placeholder="Class Name">
+            <div class="select">
+                <select id="classId">
+                    {{#each classes}}
+                    <option value="{{id}}">{{className}}</option>
+                    {{/each}}
+                </select>
             </div>
         </div>
 
         <div class="field">
             <div class="control">
-                <button class="button is-link">Submit</button>
+                <button id="submitMemberClass" class="button is-link">Submit</button>
             </div>
         </div>
     </div>
