@@ -24,11 +24,14 @@ app.get("/classes", (req, res, next) => {
 
     let sqlStr = 'SELECT Class.name AS className, Class.price AS classPrice, Class.description AS classDescription, Instructor.fname AS iFirstName, Instructor.lname AS iLastName FROM Class LEFT JOIN Instructor ON Class.InstructorId = Instructor.id';
 
-    mysql.pool.query(sqlStr, (err, classRows, fields) => {
-            console.log('CLASSES query finished!');
-            context.classes = classRows;
+    mysql.pool.query("SELECT id, fname AS firstName, lname AS lastName FROM Instructor", (err, instructorRows, fields) => {
+        mysql.pool.query(sqlStr, (err, classRows, fields) => {
+            console.log('CLASSESS query finished!');
+            context.classess = classRows;
+            context.instructors = instructorRows;
             res.render('classes', context);
-    })  
+        });
+    }) 
 });
 
 app.get("/clubs", (req, res, next) => {
