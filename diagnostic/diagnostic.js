@@ -185,6 +185,30 @@ app.post("/classes", function(req,res){
     });
 });
 
+app.post("/trainers", function(req,res){
+    console.log("TRAINERS POST");
+    console.log(req.body);
+
+    var sqlInsert = "INSERT INTO Trainer (fname, lname, sex, description, hourlyRate) VALUES (?,?,?,?,?)";
+    var inserts  = [req.body.fname, req.body.lname, req.body.sex, req.body.description, req.body.hourlyRate];
+
+    //This query should insert into Instructor table
+    mysql.pool.query(sqlInsert, inserts, (err, results,fields) => {
+        console.log("TRAINER INSERT COMPLETE");
+        if(err){
+            console.log("TRAINER INSERT ERROR");
+            console.log(err);
+            res.write(JSON.stringify(err));
+            res.end;
+        }
+
+        else{
+            console.log('Inserted Succesfully!')
+            res.redirect('/trainers');
+        }
+    });
+});
+
 app.use("/js", express.static("js"));
 
 app.use(function(req,res){
