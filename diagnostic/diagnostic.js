@@ -161,6 +161,30 @@ app.post("/clubs", function(req,res){
     });
 });
 
+app.post("/classes", function(req,res){
+    console.log("CLASSES POST");
+    console.log(req.body);
+
+    var sqlInsert = "INSERT INTO Class (name, price, description, InstructorId) VALUES (?,?,?,?)";
+    var inserts  = [req.body.className, req.body.classPrice, req.body.classDescription, req.body.instructorId];
+
+    //This query should insert into Member table
+    mysql.pool.query(sqlInsert, inserts, (err, results,fields) => {
+        console.log("CLASS INSERT COMPLETE");
+        if(err){
+            console.log("CLASS INSERT ERROR");
+            console.log(err);
+            res.write(JSON.stringify(err));
+            res.end;
+        }
+
+        else{
+            console.log('Inserted Succesfully!')
+            res.redirect('/classes');
+        }
+    });
+});
+
 app.use("/js", express.static("js"));
 
 app.use(function(req,res){

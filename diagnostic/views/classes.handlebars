@@ -7,14 +7,14 @@
         <div class="field">
             <label class="label">Name</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Vincent">
+                <input class="input" type="text" name="className" placeholder="Vincent">
             </div>
         </div>
         
         <div class="field">
             <label class="label">Description</label>
             <div class="control">
-                <textarea class="textarea" placeholder="Textarea"></textarea>
+                <textarea class="textarea" name="classDescription" placeholder="Textarea"></textarea>
             </div>
         </div>
 
@@ -22,18 +22,18 @@
             <label class="label">Instructor's Name</label>
             <div class="select">
                 <select id="instructorId">
-                <option value="-1">None</option>
-                {{#each instructors}}
-                <option value="{{id}}">{{firstName}} {{lastName}}</option>
-                {{/each}}
-            </select>
+                    <option value="-1">None</option>
+                    {{#each instructors}}
+                    <option value="{{id}}">{{firstName}} {{lastName}}</option>
+                    {{/each}}
+                </select>
             </div>
         </div>
         
         <div class="field">
             <label class="label">Price</label>
             <div class="control">
-                <input class="input" type="number" placeholder="15.00">
+                <input class="input" type="number" name="classPrice" placeholder="15.00">
             </div>
         </div>
 
