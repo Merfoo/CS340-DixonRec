@@ -38,13 +38,16 @@ app.get("/clubs", (req, res, next) => {
     let context = {};
     console.log('CLUBS HIT!');
 
-    let sqlStr = 'SELECT Club.name AS clubName, Club.description AS clubDescription FROM Club';
+    let sqlStr = 'SELECT id, Club.name AS clubName, Club.description AS clubDescription FROM Club';
 
     mysql.pool.query(sqlStr, (err, clubRows, fields) => {
+        mysql.pool.query("SELECT id, Member.fname AS mFirstName, Member.lname AS mLastName FROM Member", (err, memberRows, fields) => {
             console.log('CLUBS query finished!');
+            context.members = memberRows;
             context.clubs = clubRows;
             res.render('clubs', context);
-    })  
+        });
+    });  
 });
 
 app.get("/instructors", (req, res, next) => {
@@ -89,7 +92,7 @@ app.get("/trainers", (req, res, next) => {
             context.trainers = trainerRows;
             res.render('trainers', context);
         });
-    })  
+    });
 });
 
 app.post("/members", function(req,res){
@@ -223,6 +226,30 @@ app.post("/member_trainers", function(req,res){
         console.log("MEMBER TRAINER INSERT COMPLETE");
         if(err){
             console.log("MEMBER TRAINER INSERT ERROR");
+            console.log(err);
+            res.write(JSON.stringify(err));
+            res.end;
+        }
+
+        else{
+            console.log('Inserted Succesfully!')
+            res.redirect('/trainers');
+        }
+    });
+});
+
+app.post("/member_clubs", function(req,res){
+    console.log("MEMBER CLUBS POST");
+    console.log(req.body);
+
+    var sqlInsert = "INSERT INTO ClubMember (clubId, memberId) VALUES (?,?)";
+    var inserts  = [req.body.clubId, req.body.memberid];
+
+    //This query should insert into Instructor table
+    mysql.pool.query(sqlInsert, inserts, (err, results,fields) => {
+        console.log("MEMBER CLUB INSERT COMPLETE");
+        if(err){
+            console.log("MEMBER CLUB INSERT ERROR");
             console.log(err);
             res.write(JSON.stringify(err));
             res.end;

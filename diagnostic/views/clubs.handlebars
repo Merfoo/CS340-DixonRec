@@ -1,3 +1,4 @@
+<script defer src="./js/clubs.js"></script>
 <section class="section">
     <div class="container">
         <h1 class="title">
@@ -20,7 +21,7 @@
 
         <div class="field">
             <div class="control">
-                <button class="button is-link">Submit</button>
+                <button id="submitClub" class="button is-link">Submit</button>
             </div>
         </div>
     </div>
@@ -33,21 +34,29 @@
 
         <div class="field">
             <label class="label">Member</label>
-            <div class="control">
-                <input class="input" type="text" placeholder="Member Name">
+            <div class="select">
+                <select id="memberId">
+                    {{#each members}}
+                    <option value="{{id}}">{{mFirstName}} {{mLastName}}</option>
+                    {{/each}}
+                </select>
             </div>
         </div>
         
         <div class="field">
             <label class="label">Club</label>
-            <div class="control">
-                <input class="input" type="text" placeholder="Club Name">
+            <div class="select">
+                <select id="clubId">
+                    {{#each clubs}}
+                    <option value="{{id}}">{{clubName}}</option>
+                    {{/each}}
+                </select>
             </div>
         </div>
 
         <div class="field">
             <div class="control">
-                <button class="button is-link">Submit</button>
+                <button id="submitMemberClub" class="button is-link">Submit</button>
             </div>
         </div>
     </div>
