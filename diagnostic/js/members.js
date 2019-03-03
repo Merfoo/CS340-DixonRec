@@ -50,16 +50,17 @@ function addSearchMemeber() {
         axios.get("/members_search", { params: data }).then((res) => {
             console.log("Success posting members!");
             console.log(res);
+            for(var member in res.data){
+                var table = document.getElementById("SearchResultTable");
+                var row = table.insertRow(-1);
+                var cell = row.insertCell(0);
+                var str = document.createTextNode( member.sFirstName+ " " + member.sLastName);
+                cell.appendChild(str);
+            }
         }).catch((err) => {
             console.log("Error posting members!");
             console.log(err);
         });
-
-        var table = document.getElementById("SearchResultTable");
-        var row = table.insertRow(-1);
-        var cell = row.insertCell(0);
-        var str = document.createTextNode($SearchFirstName.value + " " + $SearchLastName.value);
-        cell.appendChild(str);
 
     });
 }
