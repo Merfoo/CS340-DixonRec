@@ -105,6 +105,11 @@ app.post("/members", function(req,res){
     var sqlInsert = "INSERT INTO Member (fname, lname, TrainerId) VALUES (?,?,?)";
     var inserts  = [req.body.fname, req.body.lname, req.body.trainerId];
 
+    if(req.body.trainerId == "-1") {
+        sqlInsert = "INSERT INTO Member (fname, lname) VALUES (?,?)";
+        inserts  = [req.body.fname, req.body.lname];
+    }
+
     //This query should insert into Member table
     mysql.pool.query(sqlInsert, inserts, (err, results,fields) => {
         console.log("MEMBER INSERT COMPLETE");
@@ -112,7 +117,7 @@ app.post("/members", function(req,res){
             console.log("MEMBER INSERT ERROR");
             console.log(err);
             res.write(JSON.stringify(err));
-            res.end;
+            res.end();
         }
 
         else{
@@ -136,7 +141,7 @@ app.post("/instructors", function(req,res){
             console.log("INSTRUCTOR INSERT ERROR");
             console.log(err);
             res.write(JSON.stringify(err));
-            res.end;
+            res.end();
         }
 
         else{
@@ -160,7 +165,7 @@ app.post("/clubs", function(req,res){
             console.log("CLUB INSERT ERROR");
             console.log(err);
             res.write(JSON.stringify(err));
-            res.end;
+            res.end();
         }
 
         else{
@@ -184,7 +189,7 @@ app.post("/classes", function(req,res){
             console.log("CLASS INSERT ERROR");
             console.log(err);
             res.write(JSON.stringify(err));
-            res.end;
+            res.end();
         }
 
         else{
@@ -208,7 +213,7 @@ app.post("/trainers", function(req,res){
             console.log("TRAINER INSERT ERROR");
             console.log(err);
             res.write(JSON.stringify(err));
-            res.end;
+            res.end();
         }
 
         else{
@@ -231,7 +236,7 @@ app.post("/member_trainers", function(req,res){
             console.log("MEMBER TRAINER INSERT ERROR");
             console.log(err);
             res.write(JSON.stringify(err));
-            res.end;
+            res.end();
         }
 
         else{
@@ -255,7 +260,7 @@ app.post("/member_clubs", function(req,res){
             console.log("MEMBER CLUB INSERT ERROR");
             console.log(err);
             res.write(JSON.stringify(err));
-            res.end;
+            res.end();
         }
 
         else{
@@ -279,13 +284,39 @@ app.post("/member_classes", function(req,res){
             console.log("MEMBER CLASS INSERT ERROR");
             console.log(err);
             res.write(JSON.stringify(err));
-            res.end;
+            res.end();
         }
 
         else{
             console.log('Inserted Succesfully!')
             res.redirect('/trainers');
         }
+    });
+});
+
+app.delete("/clubs", function(req,res){
+    console.log("CLUBS DELETE");
+    console.log(req.query);
+
+    var sqlDeleteClubMember = "DELETE FROM ClubMember WHERE ClubId = " + req.query.clubId;
+    var sqlDeleteClub = "DELETE FROM Club WHERE id = " + req.query.clubId;
+
+    //This query should delete from ClubMember and Club tables
+    mysql.pool.query(sqlDeleteClubMember, (err, clubMember, clubMemberFields) => {
+        mysql.pool.query(sqlDeleteClub, (err, club, clubFields) => {
+            console.log("CLUB DELETE COMPLETE");
+            if(err){
+                console.log("CLUB DELETE ERROR");
+                console.log(err);
+                res.write(JSON.stringify(err));
+                res.end();
+            }
+    
+            else{
+                console.log('Deleted Succesfully!')
+                res.end();
+            }
+        });
     });
 });
 
