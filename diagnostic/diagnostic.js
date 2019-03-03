@@ -82,6 +82,30 @@ app.get("/members", (req, res, next) => {
     })
 });
 
+app.get("/members_search", (req, res, next) => {
+    let context = {};
+    console.log('MEMBERS SEARCH HIT!');
+
+    let sqlStr = 'SELECT fname AS sFirstName, lname AS sLastName FROM Member WHERE fname = ? AND lname = ?' ;
+    var inserts  = [req.body.fnameSearch, req.body.lnameSearch];
+
+    //This query should insert into Member table
+    mysql.pool.query(sqlInsert, inserts, (err, results,fields) => {
+        console.log("MEMBER INSERT COMPLETE");
+        if(err){
+            console.log("MEMBER INSERT ERROR");
+            console.log(err);
+            res.write(JSON.stringify(err));
+            res.end;
+        }
+
+        else{
+            console.log('Inserted Succesfully!')
+            res.redirect('/members');
+        }
+    });
+});
+
 app.get("/trainers", (req, res, next) => {
     let context = {};
     console.log('TRAINERS HIT!');

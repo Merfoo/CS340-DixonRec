@@ -1,4 +1,4 @@
-window.addEventListener("load", () => {
+function addSubmitMemeber() {
     const memberFirstNameId = "fname";
     const memberLastNameId = "lname";
     const trainerSelectId = "trainerId";
@@ -26,4 +26,36 @@ window.addEventListener("load", () => {
             console.log(err);
         });
     });
+}
+
+function addSearchMemeber() {
+    const SearchFirstNameId = "fnameSearch";
+    const SearchLastNameId = "lnameSearch";
+
+    let $search = document.getElementById("search");
+    let $SearchFirstName = document.getElementsByName(SearchFirstNameId)[0];
+    let $SearchLastName = document.getElementsByName(SearchLastNameId)[0];
+
+    $search.addEventListener("click", () => {
+        const data = {
+            [SearchFirstNameId]: $SearchFirstName.value,
+            [SearchLastNameId]: $SearchLastName.value
+        };
+        
+        axios.post("/members_search", data).then((res) => {
+            console.log("Success posting members!");
+            console.log(res);
+        }).catch((err) => {
+            console.log("Error posting members!");
+            console.log(err);
+        });
+
+    });
+}
+
+
+
+window.addEventListener("load", () => {
+    addSubmitMemeber();
+    addSearchMemeber();
 });
