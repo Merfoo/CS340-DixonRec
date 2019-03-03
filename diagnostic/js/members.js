@@ -1,5 +1,3 @@
-import { REPL_MODE_SLOPPY } from "repl";
-
 function addSubmitMemeber() {
     const memberFirstNameId = "fname";
     const memberLastNameId = "lname";
@@ -37,6 +35,7 @@ function addSearchMemeber() {
     let $search = document.getElementById("search");
     let $SearchFirstName = document.getElementsByName(SearchFirstNameId)[0];
     let $SearchLastName = document.getElementsByName(SearchLastNameId)[0];
+    let table = document.getElementById("SearchResultTable");
 
     $search.addEventListener("click", () => {
         const data = {
@@ -47,14 +46,15 @@ function addSearchMemeber() {
         console.log("Searching Members!");
         console.log(data);
         
+        table.innerHTML = "<tr><th>Member Name</th></tr>";
+
         axios.get("/members_search", { params: data }).then((res) => {
             console.log("Success posting members!");
             console.log(res);
-            for(var member in res.data){
-                var table = document.getElementById("SearchResultTable");
+            for(let i = 0; i < res.data.length; i++){
                 var row = table.insertRow(-1);
                 var cell = row.insertCell(0);
-                var str = document.createTextNode( member.sFirstName+ " " + member.sLastName);
+                var str = document.createTextNode( res.data[i].sFirstName+ " " + res.data[i].sLastName);
                 cell.appendChild(str);
             }
         }).catch((err) => {
