@@ -78,3 +78,25 @@
         </table>
     </div>
 </section>
+
+<section class="section">
+    <div class="container">
+        <div class="field">
+            <h1 class="title">Delete Club</h1>
+            <div class="select">
+                <select id="clubId">
+                    <option value="-1">None</option>
+                    {{#each clubs}}
+                    <option value="{{id}}">{{clubName}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <button id="submit" class="button is-link">Submit</button>
+            </div>
+        </div>
+    </div>
+</section>
