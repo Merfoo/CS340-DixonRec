@@ -43,8 +43,11 @@ function addSearchMemeber() {
             [SearchFirstNameId]: $SearchFirstName.value,
             [SearchLastNameId]: $SearchLastName.value
         };
+
+        console.log("Searching Members!");
+        console.log(data);
         
-        axios.post("/members_search", data).then((res) => {
+        axios.get("/members_search", { params: data }).then((res) => {
             console.log("Success posting members!");
             console.log(res);
         }).catch((err) => {
