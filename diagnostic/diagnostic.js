@@ -53,6 +53,19 @@ app.get("/clubs", (req, res, next) => {
     });  
 });
 
+app.get("/club_members", (req, res, next) => {
+    let context = {};
+    console.log('CLUB MEMBERS HIT!');
+
+    let sqlStr = 'SELECT Club.name AS clubName, Member.fname AS mFirstName, Member.lname AS mLastName FROM ClubMember INNER JOIN Member ON ClubMember.MemberId = Member.id INNER JOIN Club ON Club.id = ClubMember.ClubId';
+
+    mysql.pool.query(sqlStr, (err, clubMemberRows, fields) => {
+        console.log('CLUB MEMBERS query finished!');
+        context.clubMembers = clubMemberRows;
+        res.render('club_members', context);
+    });  
+});
+
 app.get("/instructors", (req, res, next) => {
     let context = {};
     console.log('INSTRUCTORS HIT!');
@@ -241,7 +254,7 @@ app.post("/member_trainers", function(req,res){
 
         else{
             console.log('Inserted Succesfully!')
-            res.redirect('/trainers');
+            res.end();
         }
     });
 });
@@ -250,8 +263,8 @@ app.post("/member_clubs", function(req,res){
     console.log("MEMBER CLUBS POST");
     console.log(req.body);
 
-    var sqlInsert = "INSERT INTO ClubMember (clubId, memberId) VALUES (?,?)";
-    var inserts  = [req.body.clubId, req.body.memberid];
+    var sqlInsert = "INSERT INTO ClubMember (ClubId, MemberId) VALUES (?,?)";
+    var inserts  = [req.body.clubId, req.body.memberId];
 
     //This query should insert into Instructor table
     mysql.pool.query(sqlInsert, inserts, (err, results,fields) => {
@@ -265,7 +278,7 @@ app.post("/member_clubs", function(req,res){
 
         else{
             console.log('Inserted Succesfully!')
-            res.redirect('/trainers');
+            res.end();
         }
     });
 });
