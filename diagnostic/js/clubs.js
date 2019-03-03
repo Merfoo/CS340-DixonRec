@@ -52,7 +52,31 @@ function addSubmitMemberClub() {
     });
 }
 
+function addDeleteClub() {
+    const clubId = "clubId";
+
+    let $deleteClub = document.getElementById("delete");
+    let $clubId = document.getElementById(clubId);
+
+    $deleteClub.addEventListener("click", () => {
+        const params = {
+            [clubId]: $clubId.value,
+        };
+
+        console.log("Deleting clubs!");
+        console.log(params);
+
+        axios.delete("/clubs", { params: params }).then((res) => {
+            console.log("Success deleting clubs!");
+        }).catch((err) => {
+            console.log("Error deleting clubs!");
+            console.log(err);
+        });
+    });
+}
+
 window.addEventListener("load", () => {
     addSubmitClub();
     addSubmitMemberClub();
+    addDeleteClub();
 });

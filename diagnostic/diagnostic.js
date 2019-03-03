@@ -53,6 +53,32 @@ app.get("/clubs", (req, res, next) => {
     });  
 });
 
+app.get("/club_members", (req, res, next) => {
+    let context = {};
+    console.log('CLUB MEMBERS HIT!');
+
+    let sqlStr = 'SELECT Club.name AS clubName, Member.fname AS mFirstName, Member.lname AS mLastName FROM ClubMember INNER JOIN Member ON ClubMember.MemberId = Member.id INNER JOIN Club ON Club.id = ClubMember.ClubId';
+
+    mysql.pool.query(sqlStr, (err, clubMemberRows, fields) => {
+        console.log('CLUB MEMBERS query finished!');
+        context.clubMembers = clubMemberRows;
+        res.render('club_members', context);
+    });  
+});
+
+app.get("/class_members", (req, res, next) => {
+    let context = {};
+    console.log('CLASS MEMBERS HIT!');
+
+    let sqlStr = 'SELECT Class.name AS className, Member.fname AS mFirstName, Member.lname AS mLastName, Instructor.fname AS iFirstName, Instructor.lname AS iLastName FROM ClassMember INNER JOIN Member ON ClassMember.MemberId = Member.id INNER JOIN Class ON Class.id = ClassMember.ClassId INNER JOIN Instructor ON Instructor.id = Class.InstructorId';
+
+    mysql.pool.query(sqlStr, (err, classMemberRows, fields) => {
+        console.log('CLASS MEMBERS query finished!');
+        context.classMembers = classMemberRows;
+        res.render('class_members', context);
+    });  
+});
+
 app.get("/instructors", (req, res, next) => {
     let context = {};
     console.log('INSTRUCTORS HIT!');
@@ -60,9 +86,9 @@ app.get("/instructors", (req, res, next) => {
     let sqlStr = 'SELECT Instructor.fname AS iFirstName, Instructor.lname AS iLastName, Instructor.sex AS iSex, Instructor.description AS iDescription FROM Instructor';
 
     mysql.pool.query(sqlStr, (err, instructorRows, fields) => {
-            console.log('INSTRUCTORS query finished!');
-            context.instructors = instructorRows;
-            res.render('instructors', context);
+        console.log('INSTRUCTORS query finished!');
+        context.instructors = instructorRows;
+        res.render('instructors', context);
     })  
 });
 
@@ -129,6 +155,11 @@ app.post("/members", function(req,res){
     var sqlInsert = "INSERT INTO Member (fname, lname, TrainerId) VALUES (?,?,?)";
     var inserts  = [req.body.fname, req.body.lname, req.body.trainerId];
 
+    if(req.body.trainerId == "-1") {
+        sqlInsert = "INSERT INTO Member (fname, lname) VALUES (?,?)";
+        inserts  = [req.body.fname, req.body.lname];
+    }
+
     //This query should insert into Member table
     mysql.pool.query(sqlInsert, inserts, (err, results,fields) => {
         console.log("MEMBER INSERT COMPLETE");
@@ -136,7 +167,7 @@ app.post("/members", function(req,res){
             console.log("MEMBER INSERT ERROR");
             console.log(err);
             res.write(JSON.stringify(err));
-            res.end;
+            res.end();
         }
 
         else{
@@ -160,7 +191,7 @@ app.post("/instructors", function(req,res){
             console.log("INSTRUCTOR INSERT ERROR");
             console.log(err);
             res.write(JSON.stringify(err));
-            res.end;
+            res.end();
         }
 
         else{
@@ -184,7 +215,7 @@ app.post("/clubs", function(req,res){
             console.log("CLUB INSERT ERROR");
             console.log(err);
             res.write(JSON.stringify(err));
-            res.end;
+            res.end();
         }
 
         else{
@@ -208,7 +239,7 @@ app.post("/classes", function(req,res){
             console.log("CLASS INSERT ERROR");
             console.log(err);
             res.write(JSON.stringify(err));
-            res.end;
+            res.end();
         }
 
         else{
@@ -232,7 +263,7 @@ app.post("/trainers", function(req,res){
             console.log("TRAINER INSERT ERROR");
             console.log(err);
             res.write(JSON.stringify(err));
-            res.end;
+            res.end();
         }
 
         else{
@@ -255,12 +286,12 @@ app.post("/member_trainers", function(req,res){
             console.log("MEMBER TRAINER INSERT ERROR");
             console.log(err);
             res.write(JSON.stringify(err));
-            res.end;
+            res.end();
         }
 
         else{
             console.log('Inserted Succesfully!')
-            res.redirect('/trainers');
+            res.end();
         }
     });
 });
@@ -269,8 +300,8 @@ app.post("/member_clubs", function(req,res){
     console.log("MEMBER CLUBS POST");
     console.log(req.body);
 
-    var sqlInsert = "INSERT INTO ClubMember (clubId, memberId) VALUES (?,?)";
-    var inserts  = [req.body.clubId, req.body.memberid];
+    var sqlInsert = "INSERT INTO ClubMember (ClubId, MemberId) VALUES (?,?)";
+    var inserts  = [req.body.clubId, req.body.memberId];
 
     //This query should insert into Instructor table
     mysql.pool.query(sqlInsert, inserts, (err, results,fields) => {
@@ -279,12 +310,12 @@ app.post("/member_clubs", function(req,res){
             console.log("MEMBER CLUB INSERT ERROR");
             console.log(err);
             res.write(JSON.stringify(err));
-            res.end;
+            res.end();
         }
 
         else{
             console.log('Inserted Succesfully!')
-            res.redirect('/trainers');
+            res.end();
         }
     });
 });
@@ -294,7 +325,7 @@ app.post("/member_classes", function(req,res){
     console.log(req.body);
 
     var sqlInsert = "INSERT INTO ClassMember (classId, memberId) VALUES (?,?)";
-    var inserts  = [req.body.classId, req.body.memberid];
+    var inserts  = [req.body.classId, req.body.memberId];
 
     //This query should insert into Instructor table
     mysql.pool.query(sqlInsert, inserts, (err, results,fields) => {
@@ -303,13 +334,39 @@ app.post("/member_classes", function(req,res){
             console.log("MEMBER CLASS INSERT ERROR");
             console.log(err);
             res.write(JSON.stringify(err));
-            res.end;
+            res.end();
         }
 
         else{
             console.log('Inserted Succesfully!')
             res.redirect('/trainers');
         }
+    });
+});
+
+app.delete("/clubs", function(req,res){
+    console.log("CLUBS DELETE");
+    console.log(req.query);
+
+    var sqlDeleteClubMember = "DELETE FROM ClubMember WHERE ClubId = " + req.query.clubId;
+    var sqlDeleteClub = "DELETE FROM Club WHERE id = " + req.query.clubId;
+
+    //This query should delete from ClubMember and Club tables
+    mysql.pool.query(sqlDeleteClubMember, (err, clubMember, clubMemberFields) => {
+        mysql.pool.query(sqlDeleteClub, (err, club, clubFields) => {
+            console.log("CLUB DELETE COMPLETE");
+            if(err){
+                console.log("CLUB DELETE ERROR");
+                console.log(err);
+                res.write(JSON.stringify(err));
+                res.end();
+            }
+    
+            else{
+                console.log('Deleted Succesfully!')
+                res.end();
+            }
+        });
     });
 });
 
