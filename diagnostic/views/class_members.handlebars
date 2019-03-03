@@ -1,0 +1,21 @@
+<section class="section">
+    <div class="container">
+        <h1 class="title">
+            Classes and Members
+        </h1>
+        <table class="table">
+            <tr>
+                <th>Class</th>
+                <th>Instructor</th>
+                <th>Member</th>
+            </tr>
+            {{#each classMembers}}
+            <tr>
+                <td>{{className}}</td>
+                <td>{{iFirstName}} {{iLastName}}</td>
+                <td>{{mFirstName}} {{mLastName}}</td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+</section>

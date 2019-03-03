@@ -66,6 +66,19 @@ app.get("/club_members", (req, res, next) => {
     });  
 });
 
+app.get("/class_members", (req, res, next) => {
+    let context = {};
+    console.log('CLASS MEMBERS HIT!');
+
+    let sqlStr = 'SELECT Class.name AS className, Member.fname AS mFirstName, Member.lname AS mLastName, Instructor.fname AS iFirstName, Instructor.lname AS iLastName FROM ClassMember INNER JOIN Member ON ClassMember.MemberId = Member.id INNER JOIN Class ON Class.id = ClassMember.ClassId INNER JOIN Instructor ON Instructor.id = Class.InstructorId';
+
+    mysql.pool.query(sqlStr, (err, classMemberRows, fields) => {
+        console.log('CLASS MEMBERS query finished!');
+        context.classMembers = classMemberRows;
+        res.render('class_members', context);
+    });  
+});
+
 app.get("/instructors", (req, res, next) => {
     let context = {};
     console.log('INSTRUCTORS HIT!');
@@ -73,9 +86,9 @@ app.get("/instructors", (req, res, next) => {
     let sqlStr = 'SELECT Instructor.fname AS iFirstName, Instructor.lname AS iLastName, Instructor.sex AS iSex, Instructor.description AS iDescription FROM Instructor';
 
     mysql.pool.query(sqlStr, (err, instructorRows, fields) => {
-            console.log('INSTRUCTORS query finished!');
-            context.instructors = instructorRows;
-            res.render('instructors', context);
+        console.log('INSTRUCTORS query finished!');
+        context.instructors = instructorRows;
+        res.render('instructors', context);
     })  
 });
 
@@ -288,7 +301,7 @@ app.post("/member_classes", function(req,res){
     console.log(req.body);
 
     var sqlInsert = "INSERT INTO ClassMember (classId, memberId) VALUES (?,?)";
-    var inserts  = [req.body.classId, req.body.memberid];
+    var inserts  = [req.body.classId, req.body.memberId];
 
     //This query should insert into Instructor table
     mysql.pool.query(sqlInsert, inserts, (err, results,fields) => {
