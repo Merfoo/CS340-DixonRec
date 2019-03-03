@@ -1,3 +1,5 @@
+import { REPL_MODE_SLOPPY } from "repl";
+
 function addSubmitMemeber() {
     const memberFirstNameId = "fname";
     const memberLastNameId = "lname";
@@ -49,6 +51,12 @@ function addSearchMemeber() {
             console.log("Error posting members!");
             console.log(err);
         });
+
+        var table = document.getElementById("SearchResultTable");
+        var row = table.insertRow(-1);
+        var cell = row.insertCell(0);
+        var str = document.createTextNode($SearchFirstName.value + " " + $SearchLastName.value);
+        cell.appendChild(str);
 
     });
 }
