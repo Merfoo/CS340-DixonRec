@@ -33,6 +33,8 @@ function addSubmitMemberClub() {
     let $submitMemberClub = document.getElementById("submitMemberClub");
     let $memberId = document.getElementById(memberId);
     let $clubId = document.getElementById(clubId);
+    let $successNotification = document.getElementById("successNotification");
+    let $errorNotification = document.getElementById("errorNotification");
 
     $submitMemberClub.addEventListener("click", () => {
         const data = {
@@ -43,12 +45,17 @@ function addSubmitMemberClub() {
         console.log("Posting member clubs!");
         console.log(data);
 
+        $successNotification.style.display = "none";
+        $errorNotification.style.display = "none";
+
         axios.post("/member_clubs", data).then((res) => {
             console.log("Success posting member clubs!");
             console.log(res);
+            $successNotification.style.display = "block";
         }).catch((err) => {
             console.log("Error posting member clubs!");
             console.log(err);
+            $errorNotification.style.display = "block";
         });
     });
 }
