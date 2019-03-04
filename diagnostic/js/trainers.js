@@ -27,6 +27,7 @@ function addSubmitTrainer() {
         axios.post("/trainers", data).then((res) => {
             console.log("Success posting trainers!");
             console.log(res);
+            location.reload(true);
         }).catch((err) => {
             console.log("Error posting trainers!");
             console.log(err);

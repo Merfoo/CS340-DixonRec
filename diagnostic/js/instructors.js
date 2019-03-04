@@ -24,6 +24,7 @@ window.addEventListener("load", () => {
         axios.post("/instructors", data).then((res) => {
             console.log("Success posting instructors!");
             console.log(res);
+            location.reload(true);
         }).catch((err) => {
             console.log("Error posting instructors!");
             console.log(err);

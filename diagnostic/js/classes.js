@@ -24,6 +24,7 @@ function addSubmitClass() {
         axios.post("/classes", data).then((res) => {
             console.log("Success posting classes!");
             console.log(res);
+            location.reload(true);
         }).catch((err) => {
             console.log("Error posting classes!");
             console.log(err);

@@ -18,6 +18,7 @@ function addSubmitClub() {
         axios.post("/clubs", data).then((res) => {
             console.log("Success posting clubs!");
             console.log(res);
+            location.reload(true);
         }).catch((err) => {
             console.log("Error posting clubs!");
             console.log(err);
@@ -68,6 +69,7 @@ function addDeleteClub() {
 
         axios.delete("/clubs", { params: params }).then((res) => {
             console.log("Success deleting clubs!");
+            location.reload(true);
         }).catch((err) => {
             console.log("Error deleting clubs!");
             console.log(err);

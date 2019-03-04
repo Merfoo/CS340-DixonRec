@@ -21,6 +21,7 @@ function addSubmitMemeber() {
         axios.post("/members", data).then((res) => {
             console.log("Success posting members!");
             console.log(res);
+            location.reload(true);
         }).catch((err) => {
             console.log("Error posting members!");
             console.log(err);
@@ -51,6 +52,7 @@ function addSearchMemeber() {
         axios.get("/members_search", { params: data }).then((res) => {
             console.log("Success posting members!");
             console.log(res);
+
             for(let i = 0; i < res.data.length; i++){
                 var row = table.insertRow(-1);
                 var cell = row.insertCell(0);
@@ -61,7 +63,6 @@ function addSearchMemeber() {
             console.log("Error posting members!");
             console.log(err);
         });
-
     });
 }
 
