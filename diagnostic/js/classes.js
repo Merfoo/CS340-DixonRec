@@ -39,6 +39,8 @@ function addSubmitMemberclass() {
     let $submitMemberClass = document.getElementById("submitMemberClass");
     let $memberId = document.getElementById(memberId);
     let $classId = document.getElementById(classId);
+    let $successNotification = document.getElementById("successNotification");
+    let $errorNotification = document.getElementById("errorNotification");
 
     $submitMemberClass.addEventListener("click", () => {
         const data = {
@@ -49,12 +51,17 @@ function addSubmitMemberclass() {
         console.log("Posting member classes!");
         console.log(data);
 
+        $successNotification.style.display = "none";
+        $errorNotification.style.display = "none";
+
         axios.post("/member_classes", data).then((res) => {
             console.log("Success posting member classes!");
             console.log(res);
+            $successNotification.style.display = "block";
         }).catch((err) => {
             console.log("Error posting member classes!");
             console.log(err);
+            $errorNotification.style.display = "block";
         });
     });
 }
