@@ -42,6 +42,8 @@ function addSubmitMemberTrainer() {
     let $submitMemberTrainer = document.getElementById("submitMemberTrainer");
     let $memberId = document.getElementById(memberId);
     let $trainerId = document.getElementById(trainerId);
+    let $successNotification = document.getElementById("successNotification");
+    let $errorNotification = document.getElementById("errorNotification");
 
     $submitMemberTrainer.addEventListener("click", () => {
         const data = {
@@ -52,12 +54,17 @@ function addSubmitMemberTrainer() {
         console.log("Posting member trainers!");
         console.log(data);
 
+        $successNotification.style.display = "none";
+        $errorNotification.style.display = "none";
+
         axios.post("/member_trainers", data).then((res) => {
             console.log("Success posting member trainers!");
             console.log(res);
+            $successNotification.style.display = "block";
         }).catch((err) => {
             console.log("Error posting member trainers!");
             console.log(err);
+            $errorNotification.style.display = "block";
         });
     });
 }
