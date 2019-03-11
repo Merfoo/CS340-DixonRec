@@ -303,7 +303,7 @@ app.post("/member_clubs", function(req,res){
     console.log(req.body);
 
     var sqlInsert = "INSERT INTO ClubMember (ClubId, MemberId) VALUES (?,?)";
-    var inserts  = [req.body.clubId, req.body.memberId];
+    var inserts  = [req.body.signUpClubId, req.body.memberId];
 
     //This query should insert into Instructor table
     mysql.pool.query(sqlInsert, inserts, (err, results,fields) => {
@@ -350,8 +350,8 @@ app.delete("/clubs", function(req,res){
     console.log("CLUBS DELETE");
     console.log(req.query);
 
-    var sqlDeleteClubMember = "DELETE FROM ClubMember WHERE ClubId = " + req.query.clubId;
-    var sqlDeleteClub = "DELETE FROM Club WHERE id = " + req.query.clubId;
+    var sqlDeleteClubMember = "DELETE FROM ClubMember WHERE ClubId = " + req.query.deleteClubId;
+    var sqlDeleteClub = "DELETE FROM Club WHERE id = " + req.query.deleteClubId;
 
     //This query should delete from ClubMember and Club tables
     mysql.pool.query(sqlDeleteClubMember, (err, clubMember, clubMemberFields) => {

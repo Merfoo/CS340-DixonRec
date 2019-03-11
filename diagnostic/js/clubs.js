@@ -28,7 +28,7 @@ function addSubmitClub() {
 
 function addSubmitMemberClub() {
     const memberId = "memberId";
-    const clubId = "clubId";
+    const clubId = "signUpClubId";
 
     let $submitMemberClub = document.getElementById("submitMemberClub");
     let $memberId = document.getElementById(memberId);
@@ -61,7 +61,7 @@ function addSubmitMemberClub() {
 }
 
 function addDeleteClub() {
-    const clubId = "clubId";
+    const clubId = "deleteClubId";
 
     let $deleteClub = document.getElementById("delete");
     let $clubId = document.getElementById(clubId);
